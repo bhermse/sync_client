@@ -1,0 +1,9 @@
+{
+    "name": "bryan/sync_client",
+    "description": "PHP service to keep several systems in sync",
+    "type": "project",
+    "require": {
+        "firebase/php-jwt": "^5.0",
+        "guzzlehttp/guzzle": "~6.0"
+    }
+}

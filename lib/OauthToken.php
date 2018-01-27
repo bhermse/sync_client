@@ -1,0 +1,10 @@
+<?php
+define('SALESFORCE_PWD', getenv('SALESFORCE_PWD'));
+define('SALESFORCE_USER', getenv('SALESFORCE_USER'));
+define('SALESFORCE_CLIENT_ID', getenv('SALESFORCE_CLIENT_ID'));
+define('SALESFORCE_SECRET', getenv('SALESFORCE_SECRET'));
+
+
+
+
+?>

@@ -1,13 +1,11 @@
 <?php
-// php -a -d auto_prep}_file=./lib/WebToken.php
+// php -a -d auto_prepend_file=./ZoomSync.php
 // $res = $client->request('GET', 'https://api.zoom.us/v2/report/daily', ['query' => ['access_token' => $zoom->token]]
-//
 
 include_once('lib/WebToken.php');
 require_once __DIR__ . '/vendor/autoload.php';
 define('ZOOM_API_URL', 'https://api.zoom.us/v2/');
 
-//echo 'Token: ' . $token;
 // for dates: $date->format('Y-m-d')
 class ZoomSync {
   public $token;

@@ -10,7 +10,6 @@ define('ZOOM_API_URL', 'https://api.zoom.us/v2/');
 //echo 'Token: ' . $token;
 // for dates: $date->format('Y-m-d')
 class ZoomSync {
-  //private $token;
   public $token;
   public $client;
 
@@ -19,7 +18,6 @@ class ZoomSync {
     $this->client = new GuzzleHttp\Client();
   }
 
-
   function call($end_point, $end_point_params = []) {
     $base_uri = ZOOM_API_URL . $end_point;
     $params = array_merge($end_point_params, ['access_token' => $this->token]);
@@ -27,30 +25,33 @@ class ZoomSync {
     return json_decode($resp->getBody()->getContents());
   }
 
-  function meeting_report_for($from = null, $to = null) {
+  function meetingReportFor($from = null, $to = null) {
     $from = $from ?? $this->twoMonthsAgo();
     $to = $to ?? $this->oneMonthAgo();
     return $this->call('metrics/meetings', ['from' => $from->format('Y-m-d'), 'to' => $to->format('Y-m-d')]);
   }
 
-  function meeting_instance($meeting_id) {
-    //call(point: "metrics/meetings/#{meeting_id}")
+  function meetingInstance($meeting_id) {
+    return $this->call('metrics/meetings/' . $meeting_id);
   }
 
-  function dashboard_participants_for_meeting($meeting_id) {
-    //call(point: "metrics/meetings/#{meeting_id}/participants")
+  function dashboardParticipantsForMeeting($meeting_id) {
+    return $this->call('metrics/meetings/' . $meeting_id . '/participants');
   }
 
-  function daily_report($date) {
-    //call(point: 'report/daily/', params: {year: date.year, month: date.month})
+  function dailyReport($date = null) {
+    $date = $date ?? $this->oneMonthAgo();
+    return $this->call('report/daily/', ['year' => $date->format('Y'), 'month' => $date->format('m')]);
   }
 
-  function users_report($from_date, $to_date) {
-    //call(point: 'report/users/', params: {from: from.to_s, to: to.to_s})
+  function usersReport($from_date, $to_date) {
+    $from = $from ?? $this->twoMonthsAgo();
+    $to = $to ?? $this->oneMonthAgo();
+    return $this->call('report/users/', ['from' => $from->format('Y-m-d'), 'to' => $to->format('Y-m-d')]);
   }
 
-  function meeting_participants_report($meeting_id) {
-    //call(point: "report/meetings/#{meeting_id}/participants")
+  function meetingParticipantsReport($meeting_id) {
+    return $this->call('report/meetings/' . $meeting_id . '/participants');
   }
 
   function oneMonthAgo() {

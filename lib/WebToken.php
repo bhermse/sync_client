@@ -12,7 +12,7 @@ function getToken() {
 
   $token = array(
     "iss" => ZOOM_API_KEY,
-    "exp" => $expiration_seconds,
+    "exp" => time() + $expiration_seconds,
   ); 
   return JWT::encode($token, ZOOM_API_SECRET);
 }
